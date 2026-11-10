@@ -1,3 +1,17 @@
+"""Шифр Цезаря."""
+
+
+def shift_char(char: str, shift: int) -> str:
+    """Сдвигает латинскую букву на shift позиций с сохранением регистра, остальные символы не меняет."""
+    if "a" <= char <= "z":
+        base = ord("a")
+    elif "A" <= char <= "Z":
+        base = ord("A")
+    else:
+        return char
+    return chr((ord(char) - base + shift) % 26 + base)
+
+
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     Encrypts plaintext using a Caesar cipher.
@@ -11,7 +25,8 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     ''
     """
     ciphertext = ""
-    # PUT YOUR CODE HERE
+    for char in plaintext:
+        ciphertext += shift_char(char, shift)
     return ciphertext
 
 
@@ -28,5 +43,6 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     ''
     """
     plaintext = ""
-    # PUT YOUR CODE HERE
+    for char in ciphertext:
+        plaintext += shift_char(char, -shift)
     return plaintext
